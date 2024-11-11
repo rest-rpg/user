@@ -1,0 +1,28 @@
+server.port: 8081
+spring:
+  application.name: user
+  datasource:
+    password: 'zaq1@WSX3'
+    username: root
+    url: jdbc:mysql://localhost:3306/user?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+    database: mysql
+  sql:
+    init:
+      platform: mysql
+  mail:
+    host: smtp.ethereal.email
+    port: 587
+    username: bethany68@ethereal.email
+    password: fDcgF2SPrvQGxwDgUG
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

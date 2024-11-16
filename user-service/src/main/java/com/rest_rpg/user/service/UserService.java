@@ -80,7 +80,7 @@ public class UserService {
             helper.setTo(toAddress);
             helper.setSubject(subject);
             content = content.replace("[[name]]", user.getUsername());
-            String verifyURL = verificationURL + "/auth/verify?code=" + user.getVerificationCode();
+            String verifyURL = verificationURL + "/user/verify?code=" + user.getVerificationCode();
 
             content = content.replace("[[URL]]", verifyURL);
 

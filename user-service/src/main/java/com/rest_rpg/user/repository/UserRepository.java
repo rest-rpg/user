@@ -13,13 +13,13 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<UserAuth> findByUsername(@NotBlank String username);
+    Optional<User> findByUsername(@NotBlank String username);
 
-    Optional<UserAuth> findByEmail(@NotBlank String email);
+    Optional<User> findByEmail(@NotBlank String email);
 
     Optional<User> findByVerificationCode(@NotBlank String verificationCode);
 
-    default @NotNull UserAuth getByUsername(@NotBlank String username) {
+    default @NotNull User getByUsername(@NotBlank String username) {
         return findByUsername(username).orElseThrow(UserNotFoundException::new);
     }
 

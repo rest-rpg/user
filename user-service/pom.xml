@@ -30,6 +30,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.rest_rpg.auth</groupId>
+            <artifactId>auth-starter</artifactId>
+            <version>${rest_rpg.auth.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>

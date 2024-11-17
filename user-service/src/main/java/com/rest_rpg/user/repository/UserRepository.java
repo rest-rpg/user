@@ -1,6 +1,5 @@
 package com.rest_rpg.user.repository;
 
-import com.rest_rpg.user.api.model.UserAuth;
 import com.rest_rpg.user.exception.UserNotFoundException;
 import com.rest_rpg.user.model.User;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
 package com.rest_rpg.user.controller;
 
-import com.rest_rpg.user.api.model.UserAuth;
 import com.rest_rpg.user.api.model.UserLite;
+import com.rest_rpg.user.api.model.UserWithPassword;
 import com.rest_rpg.user.feign.UserInternalApi;
 import com.rest_rpg.user.service.UserInternalService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class UserInternalController implements UserInternalApi {
     private final UserInternalService userInternalService;
 
     @Override
-    public UserAuth getUserByUsername(String username) {
+    public UserWithPassword getUserByUsername(String username) {
         return userInternalService.getUserByUsername(username);
     }
 

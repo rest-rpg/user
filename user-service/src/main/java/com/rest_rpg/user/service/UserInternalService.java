@@ -1,7 +1,7 @@
 package com.rest_rpg.user.service;
 
-import com.rest_rpg.user.api.model.UserAuth;
 import com.rest_rpg.user.api.model.UserLite;
+import com.rest_rpg.user.api.model.UserWithPassword;
 import com.rest_rpg.user.mapper.UserMapper;
 import com.rest_rpg.user.repository.UserRepository;
 import jakarta.validation.constraints.NotBlank;
@@ -17,8 +17,8 @@ public class UserInternalService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserAuth getUserByUsername(@NotBlank String username) {
-        return userMapper.toUserAuth(userRepository.getByUsername(username));
+    public UserWithPassword getUserByUsername(@NotBlank String username) {
+        return userMapper.toUserWithPassword(userRepository.getByUsername(username));
     }
 
     public UserLite getUserById(long userId) {

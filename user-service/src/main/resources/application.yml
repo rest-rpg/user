@@ -15,17 +15,12 @@ spring:
   sql:
     init:
       platform: mysql
-  mail:
-    host: smtp.ethereal.email
-    port: 587
-    username: bethany68@ethereal.email
-    password: fDcgF2SPrvQGxwDgUG
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    template.default-topic: send-verification-email
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 logging:
   level:
     org:

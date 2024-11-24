@@ -36,6 +36,7 @@
 		<java.version>17</java.version>
 
 		<rest_rpg.auth.version>1.0.0-SNAPSHOT</rest_rpg.auth.version>
+		<rest_rpg.mailer.version>1.0.0-SNAPSHOT</rest_rpg.mailer.version>
 
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 		<lombok.version>1.18.34</lombok.version>

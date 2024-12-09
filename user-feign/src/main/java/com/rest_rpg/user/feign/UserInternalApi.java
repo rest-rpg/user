@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface UserInternalApi {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/name/{username}")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/user/name/{username}")
     UserWithPassword getUserByUsername(@PathVariable @NotBlank String username);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/user/lite/name/{username}")
+    UserLite getUserLiteByUsername(@PathVariable @NotBlank String username);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/user/{userId}")
     UserLite getUserById(@PathVariable long userId);
 }

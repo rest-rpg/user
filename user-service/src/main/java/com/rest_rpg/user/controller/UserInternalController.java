@@ -21,6 +21,11 @@ public class UserInternalController implements UserInternalApi {
     }
 
     @Override
+    public UserLite getUserLiteByUsername(String username) {
+        return userInternalService.getUserLiteByUsername(username);
+    }
+
+    @Override
     public UserLite getUserById(long userId) {
         return userInternalService.getUserById(userId);
     }

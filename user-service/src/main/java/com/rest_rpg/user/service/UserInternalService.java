@@ -21,6 +21,10 @@ public class UserInternalService {
         return userMapper.toUserWithPassword(userRepository.getByUsername(username));
     }
 
+    public UserLite getUserLiteByUsername(@NotBlank String username) {
+        return userMapper.toUserLite(userRepository.getByUsername(username));
+    }
+
     public UserLite getUserById(long userId) {
         return userMapper.toUserLite(userRepository.getById(userId));
     }

@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: User API
+  description: API for RPG REST user module.
+  version: '1.0'
+servers:
+  - url: http://localhost:8081
+tags:
+  - name: user
+    description: User API
+paths:
+  /user:
+    post:
+      summary: Register user.
+      operationId: register
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '204':
+          description: No content
+  /user/verify/{code}:
+    get:
+      summary: Verifies user account.
+      operationId: verifyUser
+      tags:
+        - user
+      parameters:
+        - name: code
+          in: path
+          required: true
+          description: User verification code
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content
+components:
+  schemas:
+    ErrorCodes:
+      type: string
+      enum:
+        - ACCOUNT_EMAIL_EXISTS
+        - ACCOUNT_USERNAME_EXISTS
+        - ACCOUNT_ALREADY_VERIFIED
+        - USER_NOT_FOUND
+    RegisterRequest:
+      description: Register request
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          description: Username
+          x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank"
+          type: string
+        email:
+          description: Email
+          x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank @jakarta.validation.constraints.Email"
+          type: string
+        password:
+          description: Password
+          minLength: 8
+          x-field-extra-annotation: "@jakarta.validation.constraints.NotBlank"
+          type: string
+          format: password

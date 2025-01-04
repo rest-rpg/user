@@ -1,6 +1,5 @@
 package com.rest_rpg.user.model;
 
-import com.rest_rpg.user.model.dto.RegisterRequest;
 import com.rest_rpg.user.api.model.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.openapitools.model.RegisterRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,7 +59,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static User of(RegisterRequest request,
+    public static User of(@NotNull RegisterRequest request,
                           PasswordEncoder passwordEncoder,
                           @NotNull Role role) {
         return User.builder()

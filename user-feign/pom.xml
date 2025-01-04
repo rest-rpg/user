@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.rest_rpg.user</groupId>
         <artifactId>user</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>user-feign</artifactId>

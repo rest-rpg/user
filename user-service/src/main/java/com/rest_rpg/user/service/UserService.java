@@ -6,12 +6,13 @@ import com.rest_rpg.user.exception.AccountEmailExistsException;
 import com.rest_rpg.user.exception.AccountUsernameExistsException;
 import com.rest_rpg.user.exception.UserAlreadyVerifiedException;
 import com.rest_rpg.user.model.User;
-import com.rest_rpg.user.model.dto.RegisterRequest;
 import com.rest_rpg.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.openapitools.model.RegisterRequest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final KafkaTemplate<String, SendVerificationEmailEvent> kafkaTemplate;
 
-    public void register(@NotNull RegisterRequest request,
+    public void register(@NotNull @Valid RegisterRequest request,
                          @NotNull HttpServletRequest servletRequest,
                          @NotNull Role role) {
         assertAccountNotExists(request.getUsername(), request.getEmail());
@@ -57,7 +58,7 @@ public class UserService {
     }
 
     private void sendVerificationEmail(@NotNull User user, @NotBlank String verificationURL) {
-        String verifyURL = verificationURL + "/user/verify?code=" + user.getVerificationCode();
+        String verifyURL = verificationURL + "/user/verify/" + user.getVerificationCode();
         SendVerificationEmailEvent event = new SendVerificationEmailEvent(user.getUsername(), user.getEmail(), verifyURL);
         kafkaTemplate.send(SendVerificationEmailEvent.TOPIC_NAME, event);
     }

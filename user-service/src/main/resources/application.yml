@@ -21,6 +21,8 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+api-gateway:
+  url: 'http://localhost:9000/api'
 logging:
   level:
     org:

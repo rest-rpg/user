@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.model.RegisterRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,15 +28,17 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final KafkaTemplate<String, SendVerificationEmailEvent> kafkaTemplate;
 
+    @Value("${api-gateway.url}")
+    private String apiGatewayUrl;
+
     public void register(@NotNull @Valid RegisterRequest request,
                          @NotNull HttpServletRequest servletRequest,
                          @NotNull Role role) {
         assertAccountNotExists(request.getUsername(), request.getEmail());
-        String verificationURL = getSiteURL(servletRequest);
         User user = User.of(request, passwordEncoder, role);
         user = userRepository.save(user);
 
-        sendVerificationEmail(user, verificationURL);
+        sendVerificationEmail(user, apiGatewayUrl);
     }
 
     public void verify(@NotBlank String verificationCode) {

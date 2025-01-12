@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.rest_rpg.user</groupId>
         <artifactId>user</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>user-service</artifactId>
@@ -38,6 +38,11 @@
             <groupId>com.rest_rpg.mailer</groupId>
             <artifactId>mailer-api</artifactId>
             <version>${rest_rpg.mailer.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rest_rpg.common</groupId>
+            <artifactId>common</artifactId>
+            <version>${rest_rpg.common.version}</version>
         </dependency>
 
         <dependency>

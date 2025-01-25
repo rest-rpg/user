@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Objects;
 
-@FeignClient(value = "user", url = "http://localhost:8081")
+@FeignClient(value = "user", url = "${feign.user.url}")
 public interface UserInternalClient extends UserInternalApi {
 
     default String getUsernameFromContext() {

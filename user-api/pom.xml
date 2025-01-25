@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.rest_rpg.user</groupId>
         <artifactId>user</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>user-api</artifactId>

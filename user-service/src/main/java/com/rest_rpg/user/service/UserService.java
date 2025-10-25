@@ -7,7 +7,6 @@ import com.rest_rpg.user.exception.AccountUsernameExistsException;
 import com.rest_rpg.user.exception.UserAlreadyVerifiedException;
 import com.rest_rpg.user.model.User;
 import com.rest_rpg.user.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +31,6 @@ public class UserService {
     private String apiGatewayUrl;
 
     public void register(@NotNull @Valid RegisterRequest request,
-                         @NotNull HttpServletRequest servletRequest,
                          @NotNull Role role) {
         assertAccountNotExists(request.getUsername(), request.getEmail());
         User user = User.of(request, passwordEncoder, role);
@@ -64,10 +62,5 @@ public class UserService {
         String verifyURL = verificationURL + "/user/verify/" + user.getVerificationCode();
         SendVerificationEmailEvent event = new SendVerificationEmailEvent(user.getUsername(), user.getEmail(), verifyURL);
         kafkaTemplate.send(SendVerificationEmailEvent.TOPIC_NAME, event);
-    }
-
-    private String getSiteURL(@NotNull HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
     }
 }

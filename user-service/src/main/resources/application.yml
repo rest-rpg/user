@@ -23,6 +23,10 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 api-gateway:
   url: 'http://localhost:9000/api'
+default-admin:
+  username: admin
+  email: admin@gmail.com
+  password: zaq1@WSX
 logging:
   level:
     org:

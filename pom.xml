@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.rest_rpg.user</groupId>
 	<artifactId>user</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>user</name>
 	<description>user</description>
@@ -45,6 +45,7 @@
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 		<jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
 		<springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+		<spock.version>2.4-M1-groovy-4.0</spock.version>
 
 		<openapi-generator-maven-plugin.version>6.6.0</openapi-generator-maven-plugin.version>
 	</properties>

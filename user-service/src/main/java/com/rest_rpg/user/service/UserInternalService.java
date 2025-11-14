@@ -14,18 +14,18 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class UserInternalService {
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
+  private final UserRepository userRepository;
+  private final UserMapper userMapper;
 
-    public UserWithPassword getUserByUsername(@NotBlank String username) {
-        return userMapper.toUserWithPassword(userRepository.getByUsername(username));
-    }
+  public UserWithPassword getUserByUsername(@NotBlank String username) {
+    return userMapper.toUserWithPassword(userRepository.getByUsername(username));
+  }
 
-    public UserLite getUserLiteByUsername(@NotBlank String username) {
-        return userMapper.toUserLite(userRepository.getByUsername(username));
-    }
+  public UserLite getUserLiteByUsername(@NotBlank String username) {
+    return userMapper.toUserLite(userRepository.getByUsername(username));
+  }
 
-    public UserLite getUserById(long userId) {
-        return userMapper.toUserLite(userRepository.getById(userId));
-    }
+  public UserLite getUserById(long userId) {
+    return userMapper.toUserLite(userRepository.getById(userId));
+  }
 }

@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class UserAlreadyVerifiedException extends ResponseStatusException {
 
-    public UserAlreadyVerifiedException() {
-        super(HttpStatus.FORBIDDEN, ErrorCodes.ACCOUNT_ALREADY_VERIFIED.toString());
-    }
+  public UserAlreadyVerifiedException() {
+    super(HttpStatus.FORBIDDEN, ErrorCodes.ACCOUNT_ALREADY_VERIFIED.toString());
+  }
 }

@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class UserInternalController implements UserInternalApi {
 
-    private final UserInternalService userInternalService;
+  private final UserInternalService userInternalService;
 
-    @Override
-    public UserWithPassword getUserByUsername(String username) {
-        return userInternalService.getUserByUsername(username);
-    }
+  @Override
+  public UserWithPassword getUserByUsername(String username) {
+    return userInternalService.getUserByUsername(username);
+  }
 
-    @Override
-    public UserLite getUserLiteByUsername(String username) {
-        return userInternalService.getUserLiteByUsername(username);
-    }
+  @Override
+  public UserLite getUserLiteByUsername(String username) {
+    return userInternalService.getUserLiteByUsername(username);
+  }
 
-    @Override
-    public UserLite getUserById(long userId) {
-        return userInternalService.getUserById(userId);
-    }
+  @Override
+  public UserLite getUserById(long userId) {
+    return userInternalService.getUserById(userId);
+  }
 }

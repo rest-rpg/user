@@ -23,44 +23,44 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final KafkaTemplate<String, SendVerificationEmailEvent> kafkaTemplate;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
+  private final KafkaTemplate<String, SendVerificationEmailEvent> kafkaTemplate;
 
-    @Value("${api-gateway.url}")
-    private String apiGatewayUrl;
+  @Value("${api-gateway.url}")
+  private String apiGatewayUrl;
 
-    public void register(@NotNull @Valid RegisterRequest request,
-                         @NotNull Role role) {
-        assertAccountNotExists(request.getUsername(), request.getEmail());
-        User user = User.of(request, passwordEncoder, role);
-        user = userRepository.save(user);
+  public void register(@NotNull @Valid RegisterRequest request, @NotNull Role role) {
+    assertAccountNotExists(request.getUsername(), request.getEmail());
+    User user = User.of(request, passwordEncoder, role);
+    user = userRepository.save(user);
 
-        sendVerificationEmail(user, apiGatewayUrl);
+    sendVerificationEmail(user, apiGatewayUrl);
+  }
+
+  public void verify(@NotBlank String verificationCode) {
+    User user = userRepository.getByVerificationCode(verificationCode);
+
+    if (user.isEnabled()) {
+      throw new UserAlreadyVerifiedException();
     }
+    user.setEnabled(true);
+    userRepository.save(user);
+  }
 
-    public void verify(@NotBlank String verificationCode) {
-        User user = userRepository.getByVerificationCode(verificationCode);
-
-        if (user.isEnabled()) {
-            throw new UserAlreadyVerifiedException();
-        }
-        user.setEnabled(true);
-        userRepository.save(user);
+  private void assertAccountNotExists(@NotBlank String username, @NotBlank String email) {
+    if (userRepository.findByUsername(username).isPresent()) {
+      throw new AccountUsernameExistsException();
     }
-
-    private void assertAccountNotExists(@NotBlank String username, @NotBlank String email) {
-        if (userRepository.findByUsername(username).isPresent()) {
-            throw new AccountUsernameExistsException();
-        }
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new AccountEmailExistsException();
-        }
+    if (userRepository.findByEmail(email).isPresent()) {
+      throw new AccountEmailExistsException();
     }
+  }
 
-    private void sendVerificationEmail(@NotNull User user, @NotBlank String verificationURL) {
-        String verifyURL = verificationURL + "/user/verify/" + user.getVerificationCode();
-        SendVerificationEmailEvent event = new SendVerificationEmailEvent(user.getUsername(), user.getEmail(), verifyURL);
-        kafkaTemplate.send(SendVerificationEmailEvent.TOPIC_NAME, event);
-    }
+  private void sendVerificationEmail(@NotNull User user, @NotBlank String verificationURL) {
+    String verifyURL = verificationURL + "/user/verify/" + user.getVerificationCode();
+    SendVerificationEmailEvent event =
+        new SendVerificationEmailEvent(user.getUsername(), user.getEmail(), verifyURL);
+    kafkaTemplate.send(SendVerificationEmailEvent.TOPIC_NAME, event);
+  }
 }

@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class UserController implements UserApi {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    @Override
-    public ResponseEntity<Void> register(RegisterRequest registerRequest) {
-        userService.register(registerRequest, Role.USER);
-        return ResponseEntity.ok().build();
-    }
+  @Override
+  public ResponseEntity<Void> register(RegisterRequest registerRequest) {
+    userService.register(registerRequest, Role.USER);
+    return ResponseEntity.ok().build();
+  }
 
-    @Override
-    public ResponseEntity<Void> verifyUser(String code) {
-        userService.verify(code);
-        return ResponseEntity.ok().build();
-    }
+  @Override
+  public ResponseEntity<Void> verifyUser(String code) {
+    userService.verify(code);
+    return ResponseEntity.ok().build();
+  }
 }

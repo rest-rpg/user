@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class AccountEmailExistsException extends ResponseStatusException {
 
-    public AccountEmailExistsException() {
-        super(HttpStatus.FORBIDDEN, ErrorCodes.ACCOUNT_EMAIL_EXISTS.toString());
-    }
+  public AccountEmailExistsException() {
+    super(HttpStatus.FORBIDDEN, ErrorCodes.ACCOUNT_EMAIL_EXISTS.toString());
+  }
 }

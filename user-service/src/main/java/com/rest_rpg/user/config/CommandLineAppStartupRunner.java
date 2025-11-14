@@ -12,28 +12,29 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CommandLineAppStartupRunner implements CommandLineRunner {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
-    @Value("${default-admin.username}")
-    private String adminUsername;
+  @Value("${default-admin.username}")
+  private String adminUsername;
 
-    @Value("${default-admin.email}")
-    private String adminEmail;
+  @Value("${default-admin.email}")
+  private String adminEmail;
 
-    @Value("${default-admin.password}")
-    private String adminPassword;
+  @Value("${default-admin.password}")
+  private String adminPassword;
 
-    @Override
-    public void run(String... args) {
-        createDefaultUser();
+  @Override
+  public void run(String... args) {
+    createDefaultUser();
+  }
+
+  private void createDefaultUser() {
+    if (userRepository.findByUsername(adminUsername).isEmpty()) {
+      userRepository.save(
+          User.createDefaultAdmin(
+              adminUsername, adminEmail, passwordEncoder.encode(adminPassword)));
     }
-
-    private void createDefaultUser() {
-        if (userRepository.findByUsername(adminUsername).isEmpty()) {
-            userRepository.save(User.createDefaultAdmin(
-                    adminUsername, adminEmail, passwordEncoder.encode(adminPassword)));
-        }
-    }
+  }
 }

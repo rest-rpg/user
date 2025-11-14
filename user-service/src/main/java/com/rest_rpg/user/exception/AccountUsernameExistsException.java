@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class AccountUsernameExistsException extends ResponseStatusException {
 
-    public AccountUsernameExistsException() {
-        super(HttpStatus.FORBIDDEN, ErrorCodes.ACCOUNT_USERNAME_EXISTS.toString());
-    }
+  public AccountUsernameExistsException() {
+    super(HttpStatus.FORBIDDEN, ErrorCodes.ACCOUNT_USERNAME_EXISTS.toString());
+  }
 }

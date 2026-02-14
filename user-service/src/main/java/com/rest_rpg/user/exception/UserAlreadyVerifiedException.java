@@ -1,6 +1,6 @@
 package com.rest_rpg.user.exception;
 
-import org.openapitools.model.ErrorCodes;
+import com.ms.user.model.ErrorCodes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 

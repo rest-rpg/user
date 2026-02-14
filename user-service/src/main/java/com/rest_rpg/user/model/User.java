@@ -1,13 +1,17 @@
 package com.rest_rpg.user.model;
 
-import com.rest_rpg.user.api.model.Role;
+import com.ms.user.model.CreateUserRequest;
+import com.ms.user.model.Role;
+import com.ms.user.model.UpdateOwnAccountRequest;
+import com.ms.user.model.UserUpdateRequest;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,22 +24,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.openapitools.model.RegisterRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
 @Entity
 public class User implements UserDetails {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @Id @GeneratedValue private UUID id;
 
   @Column(unique = true)
   @NotBlank
@@ -50,22 +51,39 @@ public class User implements UserDetails {
 
   private boolean enabled;
 
-  @NotBlank
+  @Nullable
   @Size(max = 64)
   private String verificationCode;
 
+  @NotNull
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  private boolean deleted;
+
+  public void update(@NotNull UserUpdateRequest userUpdateRequest) {
+    username = userUpdateRequest.getUsername();
+    email = userUpdateRequest.getEmail();
+    role = userUpdateRequest.getRole();
+  }
+
+  public void update(@NotNull UpdateOwnAccountRequest request) {
+    username = request.getUsername();
+    email = request.getEmail();
+  }
+
   public static User of(
-      @NotNull RegisterRequest request, PasswordEncoder passwordEncoder, @NotNull Role role) {
+      @NotNull CreateUserRequest createUserRequest,
+      boolean enabled,
+      @NotBlank String encodedPassword) {
     return User.builder()
-        .username(request.getUsername())
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(role)
-        .enabled(false)
-        .verificationCode(UUID.randomUUID().toString())
+        .username(createUserRequest.getRegisterRequest().getUsername())
+        .email(createUserRequest.getRegisterRequest().getEmail())
+        .password(encodedPassword)
+        .role(createUserRequest.getRole())
+        .enabled(enabled)
+        .verificationCode(enabled ? null : UUID.randomUUID().toString())
+        .deleted(false)
         .build();
   }
 
@@ -77,7 +95,7 @@ public class User implements UserDetails {
         .password(encodedPassword)
         .role(Role.ADMIN)
         .enabled(true)
-        .verificationCode(UUID.randomUUID().toString())
+        .deleted(false)
         .build();
   }
 

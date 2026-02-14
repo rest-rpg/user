@@ -1,6 +1,6 @@
 package com.rest_rpg.command_line_app_startup_runner
 
-import com.rest_rpg.user.TestBase
+import com.rest_rpg.TestBase
 import com.rest_rpg.user.UserServiceHelper
 import com.rest_rpg.user.config.CommandLineAppStartupRunner
 import org.springframework.beans.factory.annotation.Autowired

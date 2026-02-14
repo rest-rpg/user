@@ -1,6 +1,6 @@
 package com.rest_rpg.user
 
-import com.rest_rpg.user.api.model.Role
+import com.ms.user.model.Role
 import com.rest_rpg.user.model.User
 import com.rest_rpg.user.repository.UserRepository
 import jakarta.validation.constraints.NotBlank

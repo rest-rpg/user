@@ -1,0 +1,7 @@
+user:
+  allowed-roles: EMPLOYEE, MANAGER
+  registration-enabled: false
+default-admin:
+  username: admin
+  email: admin@gmail.com
+  password: ${admin-password}

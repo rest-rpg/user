@@ -1,9 +1,10 @@
 package com.rest_rpg.user.controller;
 
-import com.rest_rpg.user.api.model.UserLite;
-import com.rest_rpg.user.api.model.UserWithPassword;
-import com.rest_rpg.user.feign.UserInternalApi;
+import com.ms.user.model.UserLite;
+import com.ms.user.model.UserWithPassword;
+import com.rest_rpg.common.feign.user.UserInternalApi;
 import com.rest_rpg.user.service.UserInternalService;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class UserInternalController implements UserInternalApi {
   }
 
   @Override
-  public UserLite getUserById(long userId) {
+  public UserLite getUserById(UUID userId) {
     return userInternalService.getUserById(userId);
   }
 }

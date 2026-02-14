@@ -31,7 +31,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
   }
 
   private void createDefaultUser() {
-    if (userRepository.findByUsername(adminUsername).isEmpty()) {
+    if (userRepository.findByUsernameAndDeletedFalse(adminUsername).isEmpty()) {
       userRepository.save(
           User.createDefaultAdmin(
               adminUsername, adminEmail, passwordEncoder.encode(adminPassword)));

@@ -1,17 +1,19 @@
-CREATE TABLE user
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE users
 (
-    id                BIGINT AUTO_INCREMENT NOT NULL,
-    username          VARCHAR(255) NULL,
-    email             VARCHAR(255) NULL,
-    password          VARCHAR(255) NULL,
-    enabled           BIT(1) NOT NULL,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    enabled BOOLEAN NOT NULL,
     verification_code VARCHAR(64) NULL,
-    `role`            VARCHAR(255) NULL,
-    CONSTRAINT pk_user PRIMARY KEY (id)
+    role VARCHAR(255) NOT NULL,
+    deleted BOOLEAN NOT NULL
 );
 
-ALTER TABLE user
-    ADD CONSTRAINT uc_user_email UNIQUE (email);
+ALTER TABLE users
+    ADD CONSTRAINT uc_users_email UNIQUE (email);
 
-ALTER TABLE user
-    ADD CONSTRAINT uc_user_username UNIQUE (username);
+ALTER TABLE users
+    ADD CONSTRAINT uc_users_username UNIQUE (username);

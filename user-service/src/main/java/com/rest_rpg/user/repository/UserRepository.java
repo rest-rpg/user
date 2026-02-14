@@ -5,27 +5,31 @@ import com.rest_rpg.user.model.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, UUID>, UserRepositoryCustom {
 
-  Optional<User> findByUsername(@NotBlank String username);
+  Optional<User> findByUsernameAndDeletedFalse(@NotBlank String username);
 
-  Optional<User> findByEmail(@NotBlank String email);
+  Optional<User> findByEmailAndDeletedFalse(@NotBlank String email);
 
-  Optional<User> findByVerificationCode(@NotBlank String verificationCode);
+  Optional<User> findByVerificationCodeAndDeletedFalse(@NotBlank String verificationCode);
+
+  Optional<User> findByIdAndDeletedFalse(@NotNull UUID id);
 
   default @NotNull User getByUsername(@NotBlank String username) {
-    return findByUsername(username).orElseThrow(UserNotFoundException::new);
+    return findByUsernameAndDeletedFalse(username).orElseThrow(UserNotFoundException::new);
   }
 
   default @NotNull User getByVerificationCode(@NotBlank String verificationCode) {
-    return findByVerificationCode(verificationCode).orElseThrow(UserNotFoundException::new);
+    return findByVerificationCodeAndDeletedFalse(verificationCode)
+        .orElseThrow(UserNotFoundException::new);
   }
 
-  default @NotNull User getById(long userId) {
-    return findById(userId).orElseThrow(UserNotFoundException::new);
+  default @NotNull User getByIdAndDeletedFalse(UUID userId) {
+    return findByIdAndDeletedFalse(userId).orElseThrow(UserNotFoundException::new);
   }
 }

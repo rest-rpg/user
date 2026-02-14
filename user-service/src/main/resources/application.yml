@@ -4,7 +4,7 @@ spring:
   datasource:
     password: 'zaq1@WSX3'
     username: root
-    url: jdbc:mysql://localhost:3306/user?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:postgresql://localhost:5432/user
   jpa:
     properties:
       hibernate:
@@ -32,3 +32,9 @@ logging:
     org:
       springframework:
         security: DEBUG
+user:
+  allowed-roles:
+    - USER
+    - EMPLOYEE
+    - MANAGER
+  registration-enabled: true

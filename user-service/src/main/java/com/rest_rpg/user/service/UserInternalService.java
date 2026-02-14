@@ -1,10 +1,11 @@
 package com.rest_rpg.user.service;
 
-import com.rest_rpg.user.api.model.UserLite;
-import com.rest_rpg.user.api.model.UserWithPassword;
+import com.ms.user.model.UserLite;
+import com.ms.user.model.UserWithPassword;
 import com.rest_rpg.user.mapper.UserMapper;
 import com.rest_rpg.user.repository.UserRepository;
 import jakarta.validation.constraints.NotBlank;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +26,7 @@ public class UserInternalService {
     return userMapper.toUserLite(userRepository.getByUsername(username));
   }
 
-  public UserLite getUserById(long userId) {
-    return userMapper.toUserLite(userRepository.getById(userId));
+  public UserLite getUserById(UUID userId) {
+    return userMapper.toUserLite(userRepository.getByIdAndDeletedFalse(userId));
   }
 }

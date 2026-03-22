@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  SERVICE_NAME: mailer-service
+  SERVICE_NAME: user-service
 
 jobs:
   docker:

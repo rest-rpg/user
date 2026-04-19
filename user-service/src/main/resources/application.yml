@@ -2,39 +2,35 @@ server.port: 8081
 spring:
   application.name: user
   datasource:
-    password: 'zaq1@WSX3'
-    username: root
-    url: jdbc:postgresql://localhost:5432/user
+    password: 'admin123'
+    username: admin
+    url: jdbc:postgresql://localhost:5432/dance
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+    properties.hibernate.default_schema: users
     hibernate:
       ddl-auto: validate
-    database: mysql
-  sql:
-    init:
-      platform: mysql
   kafka:
     bootstrap-servers: localhost:9092
     template.default-topic: send-verification-email
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  flyway:
+    default-schema: users
+    schemas: users
+    create-schemas: true
 api-gateway:
   url: 'http://localhost:9000/api'
 default-admin:
   username: admin
   email: admin@gmail.com
   password: zaq1@WSX
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
 user:
   allowed-roles:
     - USER
     - EMPLOYEE
     - MANAGER
   registration-enabled: true
+feign:
+  user:
+    url: http://localhost:8081
